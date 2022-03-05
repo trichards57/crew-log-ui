@@ -4,14 +4,23 @@ import "./sass/app.scss";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./home";
+import { AuthProvider } from "react-oidc-context";
+
+const oidcConfig = {
+  authority: "https:/localhost:7190/",
+  client_id: "react-client",
+  redirect_uri: "/login",
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider {...oidcConfig}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
