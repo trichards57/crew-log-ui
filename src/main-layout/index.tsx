@@ -1,4 +1,3 @@
-import { User } from "oidc-client-ts";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useAuth } from "react-oidc-context";
@@ -11,9 +10,8 @@ function MainLayout({
   authenticating,
 }: React.PropsWithChildren<{ authenticating?: boolean }>) {
   const [collapseSideBar, setCollapseSideBar] = useState(false);
-  const [user, setUser] = useState(null as User | null);
 
-  const { isAuthenticated, signinSilent, signinRedirect, isLoading } =
+  const { isAuthenticated, signinSilent, signinRedirect, isLoading, user } =
     useAuth();
 
   const navigate = useNavigate();
@@ -25,7 +23,6 @@ function MainLayout({
           const silentResult = await signinSilent();
 
           if (silentResult !== null) {
-            setUser(silentResult);
             return;
           }
         } catch {
@@ -50,7 +47,10 @@ function MainLayout({
       <SideBar collapseSideBar={collapseSideBar} />
 
       <div className="main">
-        <NavBar toggleSideBar={() => setCollapseSideBar(!collapseSideBar)} />
+        <NavBar
+          toggleSideBar={() => setCollapseSideBar(!collapseSideBar)}
+          userName={user?.profile.real_name as string | undefined}
+        />
         <main className="content">{content}</main>
 
         <footer className="footer">
