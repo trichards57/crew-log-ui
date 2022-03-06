@@ -1,9 +1,9 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 import MainLayout from "../main-layout";
 
-function Home() {
+function Home({ authenticating }: { authenticating?: boolean }) {
   return (
-    <MainLayout>
+    <MainLayout authenticating={authenticating}>
       <Container fluid className="p-0">
         <h1 className="h3 mb-3">Blank Page</h1>
 

@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./sass/app.scss";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./home";
 import { AuthProvider } from "react-oidc-context";
 
 const oidcConfig = {
-  authority: "https:/localhost:7190/",
+  authority: "/",
   client_id: "react-client",
-  redirect_uri: "/login",
+  redirect_uri: "https://localhost:3000/authentication/login-callback",
+  post_logout_redirect_uri:
+    "https://localhost:3000/authentication/logout-callback",
 };
 
 ReactDOM.render(
@@ -18,6 +19,10 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route
+            path="/authentication/*"
+            element={<Home authenticating />}
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

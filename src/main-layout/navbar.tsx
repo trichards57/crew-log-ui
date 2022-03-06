@@ -1,5 +1,6 @@
 import { Navbar, Nav, NavItem, Dropdown } from "react-bootstrap";
 import { LogOut, Settings, User } from "react-feather";
+import { useAuth } from "react-oidc-context";
 import { Link } from "react-router-dom";
 
 function NavBar({
@@ -9,6 +10,8 @@ function NavBar({
   toggleSideBar: () => void;
   userName?: string;
 }) {
+  const { signoutRedirect } = useAuth();
+
   return (
     <Navbar expand color="light" className="navbar-bg">
       <button
@@ -41,7 +44,7 @@ function NavBar({
                 Privacy
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item href="#">
+              <Dropdown.Item onClick={async () => await signoutRedirect()}>
                 <LogOut className="align-middle me-1" /> Log out
               </Dropdown.Item>
             </Dropdown.Menu>
