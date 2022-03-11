@@ -36,7 +36,7 @@ function NavBar({
               <span className="text-dark">{userName ?? "User"}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu align="end">
-              <Dropdown.Item as={Link} className="dropdown-item" to="/profile">
+              <Dropdown.Item as="a" className="dropdown-item" href="/Identity/Account/Manage">
                 <User className="align-middle me-1" /> Profile
               </Dropdown.Item>
               <Dropdown.Item as={Link} className="dropdown-item" to="/settings">

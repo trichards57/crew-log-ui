@@ -4,13 +4,14 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./home";
 import { AuthProvider } from "react-oidc-context";
+import Profile from "./profile";
 
 const oidcConfig = {
   authority: "/",
   client_id: "react-client",
-  redirect_uri: "https://localhost:3000/authentication/login-callback",
+  redirect_uri: "https://localhost:7190/authentication/login-callback",
   post_logout_redirect_uri:
-    "https://localhost:3000/authentication/logout-callback",
+    "https://localhost:7190/authentication/logout-callback",
     scope:"openid profile"
 };
 
@@ -20,6 +21,7 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/authentication/*" element={<Home authenticating />} />
         </Routes>
       </BrowserRouter>
