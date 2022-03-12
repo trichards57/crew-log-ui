@@ -9,19 +9,19 @@ function Home({ authenticating }: { authenticating?: boolean }) {
         <h1 className="h3 mb-3">Hours</h1>
 
         <Row>
-          <Col sm={12}>
+          <Col xl lg={12} sm={6}>
             <HoursCard title="Total" />
           </Col>
-          <Col sm={12}>
+          <Col xl lg={3} sm={6}>
             <HoursCard title="Primary" />
           </Col>
-          <Col sm={4}>
+          <Col xl lg={3} sm={4}>
             <HoursCard title="Secondary" />
           </Col>
-          <Col sm={4}>
+          <Col xl lg={3} sm={4}>
             <HoursCard title="Training" />
           </Col>
-          <Col sm={4}>
+          <Col xl lg={3} sm={4}>
             <HoursCard title="Other" />
           </Col>
         </Row>
