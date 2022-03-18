@@ -24,7 +24,6 @@ function SideBar({ collapseSideBar }: { collapseSideBar: boolean }) {
 
         <ul className="sidebar-nav">
           <li className="sidebar-header">Portfolio</li>
-
           <li className={"sidebar-item" + homeActive}>
             <NavLink className="sidebar-link" to="/">
               <Home /> <span className="align-middle">Home</span>
