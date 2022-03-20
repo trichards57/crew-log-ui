@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./home";
 import { AuthProvider } from "react-oidc-context";
 import Profile from "./profile";
+import Login from "./login";
+import RouterUtils from "./route-utils";
 
 const oidcConfig = {
   authority: "/",
@@ -12,18 +14,21 @@ const oidcConfig = {
   redirect_uri: "https://localhost:7190/authentication/login-callback",
   post_logout_redirect_uri:
     "https://localhost:7190/authentication/logout-callback",
-    scope:"openid profile"
+  scope: "openid profile"
 };
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider {...oidcConfig}>
+    <AuthProvider {...oidcConfig}>  
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/authentication/*" element={<Home authenticating />} />
-        </Routes>
+        <RouterUtils>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/authentication/*" element={<Home authenticating />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </RouterUtils>
       </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>,

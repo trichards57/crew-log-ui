@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useAuth } from "react-oidc-context";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigateNoUpdates } from "../route-utils";
 import NavBar from "./navbar";
 import SideBar from "./sidebar";
 
@@ -10,29 +11,25 @@ function MainLayout({
   authenticating,
 }: React.PropsWithChildren<{ authenticating?: boolean }>) {
   const [collapseSideBar, setCollapseSideBar] = useState(false);
-
-  const { isAuthenticated, signinSilent, signinRedirect, isLoading, user } =
-    useAuth();
-
-  const navigate = useNavigate();
+  const { isAuthenticated, signinSilent, user } = useAuth();
+  const navigate = useNavigateNoUpdates();
 
   useEffect(() => {
     async function checkLogIn() {
-      if (!isAuthenticated && !isLoading) {
+      if (!isAuthenticated) {
         try {
           const silentResult = await signinSilent();
 
           if (silentResult !== null) {
             return;
           }
-        } catch {
-          await signinRedirect();
-        }
+        } catch {}
+        navigate("/login");
       }
     }
 
     checkLogIn();
-  }, [isAuthenticated, signinRedirect, signinSilent, isLoading]);
+  }, [isAuthenticated, navigate, signinSilent]);
 
   useEffect(() => {
     if (authenticating && isAuthenticated) {
